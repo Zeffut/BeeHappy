@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html class="no-js" lang="fr">
+<head>
+
+   <meta charset="utf-8">
+	<title>BeeHappy</title>
+	<meta name="description" content="">  
+	<meta name="author" content="">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+   <link rel="stylesheet" href="css/base.css">
+   <link rel="stylesheet" href="css/vendor.css">  
+   <link rel="stylesheet" href="css/main.css">  
+
+	<script src="js/modernizr.js"></script>
+	<script src="js/pace.min.js"></script>
+
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+	<link rel="icon" href="favicon.ico" type="image/x-icon">
+
+	<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+</head>
+
+<body id="top">
+
+   <header> 
+
+   	<div class="header-logo">
+	      <a href="index.html"><img src="images/logo.png" alt="logo"></a>
+	   </div> 
+
+		<a id="header-menu-trigger" href="#0">
+		 	<span class="header-menu-text">Menu</span>
+		  	<span class="header-menu-icon"></span>
+		</a> 
+
+		<nav id="menu-nav-wrap">
+
+			<a href="#0" class="close-button" title="close"><span>Fermer</span></a>	
+
+	   	<h3>BeeHappy</h3>  
+
+			<ul class="nav-list">
+				<li class="current"><a class="smoothscroll" href="#home" title="">Accueil</a></li>
+				<li><a class="smoothscroll" href="#loc" title="">Localisation</a></li>
+				<li><a class="smoothscroll" href="#services" title="">Infos Ruche</a></li>
+				<li><a class="smoothscroll" href="#portfolio" title="">Galerie</a></li>
+			</ul>
+
+		</nav>
+
+	</header>
+
+
+   <section id="home">
+
+   	<div class="overlay"></div>
+
+   	<div class="home-content-table">	
+		   <div class="home-content-tablecell">
+		   	<div class="row">
+		   		<div class="col-twelve">		   			
+			  		
+			  				<h3 class="animate-intro">BeeHappy</h3>
+				  			<h1 class="animate-intro">
+							La ruche connectée<br>
+							qui aide les apiculteurs.
+				  			</h1>	
+
+				  			<div class="more animate-intro">
+				  				<a class="smoothscroll button stroke" href="#loc">
+				  					Ou est la Ruche ?
+				  				</a>
+				  			</div>							
+
+			  		</div>
+		   	</div>
+		   </div>		   
+		</div>	
+   
+   </section>
+
+
+   <section id="loc">
+
+   	<div class="row about-wrap">
+   		<div class="col-full">
+
+   			<div class="about-profile-bg"></div>
+
+				<div class="intro">
+					<h3 class="animate-this">Emplacement de la Ruche</h3>
+					<div id="map" style="height: 400px;"></div>
+					<script>
+						var myLatLng = [48.8389946 , 2.7190357];
+						var map = L.map('map').setView(myLatLng, 14);
+						L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+							attribution: ''
+						}).addTo(map);
+						L.marker(myLatLng).addTo(map)
+							.bindPopup('Ruche')
+							.openPopup();
+					</script>
+					
+				</div>
+
+   		</div>
+   	</div>
+
+   </section>
+
+
+   <section id="services">
+
+   	<div class="overlay"></div>
+   	<div class="gradient-overlay"></div>
+   	
+   	<div class="row narrow section-intro with-bottom-sep animate-this">
+   		<div class="col-full">
+   			   <h1>Infos Ruche</h1>
+   	   </div>
+   	</div>
+
+   	<div class="row services-content">
+
+   		<div class="services-list block-1-2 block-tab-full group">
+
+	      	<div class="bgrid service-item animate-this">	
+
+	      		<span class="icon"><i class='fa fa-battery'></i></span>            
+
+	            <div class="service-content">
+	            	<h3 class="h05">Batterie</h3>
+					<h1 class="infos">100%</h1>
+	         	</div> 	         	 
+
+				</div>
+
+				<div class="bgrid service-item animate-this">	
+
+					<span class="icon"><i class='fa fa-comment-o'></i></span>
+
+	            <div class="service-content">	
+	            	<h3 class="h05">Alertes</h3>
+					<h1 class="infos">Opérationnel</h1>
+	            </div>	                          
+
+			   </div>
+
+			   <div class="bgrid service-item animate-this">
+
+					<span class="icon"><i class='fa fa-window-maximize'></i></span>
+
+	            <div class="service-content">
+	            	<h3 class="h05">Accessibilité</h3>
+					<h1 class="infos">Ouvert</h1>
+	            </div>
+
+			   </div>
+
+				<div class="bgrid service-item animate-this">
+
+					<span class="icon"><i class='fa fa-dashboard'></i></span>	              
+
+	            <div class="service-content">
+	            	<h3 class="h05">Poid</h3>
+					<h1 class="infos">100Kg</h1>
+	            </div>                
+
+				</div>			   
+
+	      </div>
+   		
+   	</div>
+
+   </section>
+
+
+   <section id="portfolio">
+   	
+   	<div class="intro-wrap">
+
+   		<div class="row narrow section-intro with-bottom-sep animate-this">
+	   		<div class="col-twelve">
+	   			<h3>Galerie</h3>
+		   		<h1>Profiter d'un miel de qualité</h1>  			
+		   		
+		   		<p class="lead">Explorez l'avenir de l'apiculture avec notre ruche connectée. Gérer votre miel à distance grâce à des capteurs avancés et plongez dans notre portfolio visuel captivant. Tradition rencontre technologie pour préserver nos précieuses colonies.</p>
+	   		</div>
+	   	</div>
+
+   	</div>
+
+   	<div class="row portfolio-content">
+   		<div class="col-twelve">
+   			<div id="folio-wrap" class="bricks-wrapper">					
+
+   				<div class="brick folio-item">
+	               <div class="item-wrap animate-this" data-src="images/portfolio/gallery/g-shutterbug.jpg" data-sub-html="#01" > 	
+	                  <a href="#" class="overlay">
+	                  	<img src="images/portfolio/gallery/polinisation.jpeg" alt="Skaterboy">	                     
+	                     <div class="item-text">
+	                     	<span class="folio-types">
+		     					      Abeille
+		     					   </span>
+		     					   <h3 class="folio-title">Pollinisation</h3>	     					   
+		     					</div>                                        
+	                  </a>
+	               </div>
+	        		</div>
+
+	        		<div class="brick folio-item">
+	               <div class="item-wrap animate-this" data-src="images/portfolio/gallery/g-yellowwall.jpg" data-sub-html="#02"> 	
+	                  <a href="#" class="overlay">
+	                  	<img src="images/portfolio/gallery/abeille_flou.jpeg" alt="Shutterbug">	                     
+	                     <div class="item-text">
+	                     	<span class="folio-types">
+		     					      Abeille
+		     					   </span>
+		     					   <h3 class="folio-title">Gros Plan</h3>
+		     					</div>                                        
+	                  </a>
+	               </div>
+
+	               <div id="02" class='hide'>
+							<h4>Yellow Wall</h4>
+						</div>	               
+	        		</div>
+
+	        		<div class="brick folio-item">
+	               <div class="item-wrap animate-this" data-src="images/portfolio/gallery/g-architecture.jpg" data-sub-html="#03" >   	
+	                  <a href="#" class="overlay">
+	                  	<img src="images/portfolio/gallery/apiculteur_recolte.webp" alt="Explore">	                     
+	                     <div class="item-text">	                     		     					    
+		     					   <span class="folio-types">
+		     					      Humain
+		     					   </span>
+		     					   <h3 class="folio-title">Apiculteur</h3>
+		     					</div>                                        
+	                  </a>
+	               </div>	
+
+	               <div id="03" class='hide'>
+						</div>               
+	        		</div>
+
+					<div class="brick folio-item">
+	               <div class="item-wrap animate-this"  data-src="images/portfolio/gallery/g-minimalismo.jpg"  data-sub-html="#04" >
+	                  <a href="#" class="overlay">
+	                  	<img src="images/portfolio/gallery/ruche_nature.jpeg" alt="Minimalismo">	                     
+	                     <div class="item-text">	     					    
+		     					   <span class="folio-types">
+		     					      Design
+		     					   </span>
+		     					   <h3 class="folio-title">Ruche Moderne</h3>
+		     					</div>                                        
+	                  </a>
+	               </div>
+
+	               <div id="04" class='hide'>
+						</div>  	               
+	        		</div>
+
+					<div class="brick folio-item">
+	               <div class="item-wrap animate-this"  data-src="images/portfolio/gallery/g-skaterboy.jpg"  data-sub-html="#05" >  	
+	                  <a href="#" class="overlay">
+	                  	<img src="images/portfolio/gallery/ruche_lavande.jpeg" alt="Bicycle">	                     
+	                     <div class="item-text">	     					    
+		     					   <span class="folio-types">
+		     					      Plante
+		     					   </span>
+		     					   <h3 class="folio-title">Lavande</h3>
+		     					</div>                                        
+	                  </a>
+	               </div>
+
+	               <div id="05" class='hide'>
+						</div>	               
+	        		</div>
+
+   			</div>
+   		</div>
+   	</div>   	
+
+   </section>
+
+
+   <section id="testimonials">
+
+   	<div class="row">
+   		<div class="col-twelve">
+   			<h2 class="animate-this">Sagesse Naturelle</h2>
+   		</div>   		
+   	</div>   	
+
+      <div class="row flex-container">
+    
+         <div id="testimonial-slider" class="flex-slider animate-this">
+
+            <ul class="slides">
+
+               <li>
+                  <p>
+					La terre ne nous appartient pas : nous l'empruntons à nos enfants.
+                  </p> 
+
+                  <div class="testimonial-author">
+                    	<div class="author-info">
+                    		Antoine de Saint-Exupéry
+                    		<span class="position">Ecrivain, Aviateur et Poète</span>
+                    	</div>
+                  </div>                 
+             	</li>
+
+               <li>
+                  <p>
+					La nature est notre alliée, pas notre adversaire. Elle fait partie de nous et nous en faisons partie.
+                  </p>
+
+               	<div class="testimonial-author">
+                    	<div class="author-info">
+                    		John F. Kennedy
+                    		<span>35e Président des Etats-Unis</span>
+                    	</div>
+                  </div>                                         
+               </li>
+
+            </ul>
+
+         </div>
+        
+      </div>
+
+   </section>
+
+   <div id="preloader"> 
+    	<div id="loader"></div>
+   </div> 
+
+   <script src="js/jquery-2.1.3.min.js"></script>
+   <script src="js/plugins.js"></script>
+   <script src="js/main.js"></script>
+
+</body>
+
+</html>
