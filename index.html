@@ -94,17 +94,6 @@
 				<div class="intro">
 					<h3 class="animate-this">Emplacement de la Ruche</h3>
 					<div id="map" style="height: 400px;"></div>
-					<script>
-						var myLatLng = [48.8389946 , 2.7190357];
-						var map = L.map('map').setView(myLatLng, 14);
-						L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-							attribution: ''
-						}).addTo(map);
-						L.marker(myLatLng).addTo(map)
-							.bindPopup('Ruche')
-							.openPopup();
-					</script>
-					
 				</div>
 
    		</div>
@@ -134,30 +123,20 @@
 
 	            <div class="service-content">
 	            	<h3 class="h05">Batterie</h3>
-					<h1 class="infos">100%</h1>
+					<h1 id="battery" class="infos">100%</h1>
 	         	</div> 	         	 
 
 				</div>
 
 				<div class="bgrid service-item animate-this">	
 
-					<span class="icon"><i class='fa fa-comment-o'></i></span>
-
-	            <div class="service-content">	
-	            	<h3 class="h05">Alertes</h3>
-					<h1 class="infos">Opérationnel</h1>
-	            </div>	                          
+					<span class="icon"><i class='fa fa-comment-o'></i></span>	                          
 
 			   </div>
 
 			   <div class="bgrid service-item animate-this">
 
 					<span class="icon"><i class='fa fa-window-maximize'></i></span>
-
-	            <div class="service-content">
-	            	<h3 class="h05">Accessibilité</h3>
-					<h1 class="infos">Ouvert</h1>
-	            </div>
 
 			   </div>
 
@@ -167,7 +146,7 @@
 
 	            <div class="service-content">
 	            	<h3 class="h05">Poid</h3>
-					<h1 class="infos">100Kg</h1>
+					<h1 id="weight" class="infos">100Kg</h1>
 	            </div>                
 
 				</div>			   
