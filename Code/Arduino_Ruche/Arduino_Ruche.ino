@@ -1,5 +1,18 @@
 #include <SoftwareSerial.h>
 #include <TinyGPS++.h>
+#include <HX711_ADC.h>
+
+
+//Partie Jauge de contrainte
+
+const int HX711_dout = 7; //mcu > HX711 dout pin
+const int HX711_sck = 6; //mcu > HX711 sck pin
+
+HX711_ADC LoadCell(HX711_dout, HX711_sck);
+
+unsigned long t = 0;
+
+//Partie Batterie
 
 const int pinAnalogique = A0;
 int voltageMaxBatterie = 30;
@@ -33,6 +46,20 @@ void setup() {
   //Pour debugger
   Serial.begin(9600);
   Serial.println("Demarrage...");
+
+  //Partie jauge de contrainte
+  LoadCell.begin();
+
+  float calibrationValue;
+  calibrationValue = 696.0;
+
+  unsigned long stabilizingtime = 2000;
+  boolean _tare = true;
+  LoadCell.start(stabilizingtime, _tare);
+
+  LoadCell.setCalFactor(calibrationValue);
+  LoadCell.end();
+  Serial.println("Calibration complete");
 
   //Partie GPS
   gpsSerial.begin(9600);
@@ -87,7 +114,8 @@ void loop() {
       }
       if(command == "pds"){
         Serial.println("Commande Poids");
-        sendSMS("Poids");
+        float poids = getMasse();
+        sendSMS(poids[0]);
         Serial.println("Message Envoye !");
       }
     }
@@ -163,4 +191,11 @@ String getBatterie(){
   float tension = valeurAnalogique * (5.0 / 1024) * 12.0;
   float pourcentage = (tension / voltageMaxBatterie) * 100.0;
   return String(pourcentage, 1);
+}
+
+//Fonction qui retourne le poids en gramme
+float getMasse(){
+  LoadCell.update();
+  float masse = LoadCell.getData()*5.431971028; // on multiplie la valeur mesuré 
+  return fabs(masse);
 }
