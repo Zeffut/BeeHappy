@@ -58,7 +58,7 @@ void setup() {
   LoadCell.start(stabilizingtime, _tare);
 
   LoadCell.setCalFactor(calibrationValue);
-  LoadCell.end();
+  
   Serial.println("Calibration complete");
 
   //Partie GPS
@@ -71,6 +71,7 @@ void setup() {
   //Partie GSM
   //Allumage du module GSM
   startGSM();
+  delay(1000);
 
   SIM900.begin(19200);
 
@@ -115,7 +116,7 @@ void loop() {
       if(command == "pds"){
         Serial.println("Commande Poids");
         float poids = getMasse();
-        sendSMS(poids[0]);
+        sendSMS(String(poids));
         Serial.println("Message Envoye !");
       }
     }
