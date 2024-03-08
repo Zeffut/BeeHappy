@@ -9,7 +9,7 @@
 		.then(response => response.json()) // on transforme la les donnée des 
 		.then(data => {
 			console.log('Données récupérées depuis le serveur :', data);
-			batteryHTML.innerHTML = data['battery']; // on modif la valeur du % de batterie
+			batteryHTML.innerHTML = data['battery'] +'%'; // on modif la valeur du % de batterie
 		})
 		.catch(error => {
 			console.error('Erreur lors de la récupération des données :', error);
