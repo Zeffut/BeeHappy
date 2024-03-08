@@ -4,8 +4,8 @@
 
 	var batteryUpdateValue = function() {
 		let batteryHTML = document.getElementById("battery"); // on recupere la ligne HTML contenant le pourcentage de charge
-	
-		fetch('http://localhost:5000/get/battery') // on recupere les donnée renvoyer par l'api
+		var urlActuel = window.location.href;
+		fetch(`${urlActuel}/get/battery`) // on recupere les donnée renvoyer par l'api
 		.then(response => response.json()) // on transforme la les donnée des 
 		.then(data => {
 			console.log('Données récupérées depuis le serveur :', data);
