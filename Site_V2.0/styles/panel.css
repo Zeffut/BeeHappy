@@ -158,6 +158,7 @@ canvas {
     align-items: center;
     border-radius: 16px;
     margin-bottom: 0px;
+    font-size: 25px;
 }
 
 .value_icon {
