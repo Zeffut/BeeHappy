@@ -2,14 +2,15 @@
 
 	"use strict";
 
+	var urlActuel = window.location.href;
+
 	var batteryUpdateValue = function() {
 		let batteryHTML = document.getElementById("battery"); // on recupere la ligne HTML contenant le pourcentage de charge
-	
-		fetch('http://localhost:5000/get/battery') // on recupere les donnée renvoyer par l'api
+		fetch(`${urlActuel}/api/get/battery`) // on recupere les donnée renvoyer par l'api
 		.then(response => response.json()) // on transforme la les donnée des 
 		.then(data => {
 			console.log('Données récupérées depuis le serveur :', data);
-			batteryHTML.innerHTML = data['battery']; // on modif la valeur du % de batterie
+			batteryHTML.innerHTML = data['battery'] +'%'; // on modif la valeur du % de batterie
 		})
 		.catch(error => {
 			console.error('Erreur lors de la récupération des données :', error);
@@ -20,11 +21,11 @@
 	var weightUpdateValue = function() {
 		var weightHTML = document.getElementById("weight"); // on recupere la ligne HTML contenant le poids de la ruche
 	
-		fetch('http://localhost:5000/get/weight') // on recupere les donnée renvoyer par l'api
+		fetch(`${urlActuel}/api/get/weight`) // on recupere les donnée renvoyer par l'api
 		.then(response => response.json()) // on transforme les data en JSON
 		.then(data => {
 			console.log('Données récupérées depuis le serveur :', data);
-			weightHTML.innerHTML = data['weight']; // on modif la valeur du poids 
+			weightHTML.innerHTML = data['weight'] + ' kg'; // on modif la valeur du poids 
 		})
 		.catch(error => {
 			console.error('Erreur lors de la récupération des données :', error);
@@ -33,12 +34,12 @@
 	};
 	
 	var locationUpdateValue = function() {
-		fetch('http://localhost:5000/get/location') // on recupere les donnée renvoyer par l'api
+		fetch(`${urlActuel}/api/get/coords`) // on recupere les donnée renvoyer par l'api
 		.then(response => response.json()) // on transforme la réponse en json 
 		.then(data => {
 			console.log('Données récupérées depuis le serveur :', data);
 			// si on a bien recu les coords de la DB
-			var myLatLng = [data['lat'], data['lng']];
+			var myLatLng = [data['coordsLat'], data['coordLng']];
 						var map = L.map('map').setView(myLatLng, 14);
 						L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 							attribution: ''
