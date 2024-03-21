@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/panel.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <title>BeeHappy</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <head class="navbar">
+        <div class="navbar">
+            <div class="pages">
+                <img src="ressources/logo.png" alt="logo" class="logo">
+                <a href="index.html" class="pages_name">Acceuil</a>
+            </div>
+            <div class="connected_menu">
+                <a href="index.html">
+                    <img src="ressources/profile.png" alt="profile" class="profile">
+                </a>
+            </div>
+        </div>
+    </head>
+    <section class="page">
+        <section class="vertical_navbar">
+            <div class="menus">
+                <img src="ressources/panel.png" alt="" class="icon">
+                <a href="panel.html" class="pages_name">Tableau de Bord</a>
+            </div>
+            <div class="menus">
+                <img src="ressources/notif.png" alt="" class="icon">
+                <a href="panel.html" class="pages_name">Messages</a>
+            </div>
+            <div class="menus">
+                <img src="ressources/profile_icon.png" alt="" class="icon">
+                <a href="panel.html" class="pages_name">Profile</a>
+            </div>
+            <div class="menus">
+                <img src="ressources/settings.png" alt="" class="icon">
+                <a href="panel.html" class="pages_name">Réglages</a>
+            </div>
+        </section>
+        <section class="stats">
+            <section class="live_infos">
+                <h1>Informations en Direct</h1>
+                <div class="live_value">
+                    <div class="live_info">
+                        <h1>Batterie</h1>
+                    </div>
+                    <div class="live_info">
+                        <h1>Poids</h1>
+                    </div>
+                </div>
+            </section>
+            <section class="location">
+                <div class="map">
+                    <h1>Localisation</h1>
+                    <div id="map"></div>
+                </div>
+                <div class="infos">
+                    <h1>Adresse</h1>
+                    <div id="address" class="texte_info"></div>
+                    <h1>Latitude</h1>
+                    <div id="latitude" class="texte_info"></div>
+                    <h1>Longitude</h1>
+                    <div id="longitude" class="texte_info"></div>
+                    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+                    <script>
+                        function getAddress(latitude, longitude) {
+                            var xhr = new XMLHttpRequest();
+                            var url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=18&addressdetails=1`;
+
+                            xhr.onreadystatechange = function() {
+                                if (xhr.readyState === XMLHttpRequest.DONE) {
+                                    if (xhr.status === 200) {
+                                        var response = JSON.parse(xhr.responseText);
+                                        var address = response.display_name;
+                                        document.getElementById("address").innerText = address;
+                                    } else {
+                                        console.error('Erreur lors de la requête : ' + xhr.status);
+                                    }
+                                }
+                            };
+
+                            xhr.open('GET', url, true);
+                            xhr.send();
+                        }
+
+                        latitude = 48.8588897
+                        longitude = 2.320041
+
+                        var map = L.map('map').setView([latitude, longitude], 13);
+
+                        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                            attribution: ''
+                        }).addTo(map);
+                        L.marker([latitude, longitude]).addTo(map)
+                            .bindPopup('Ruche')
+                            .openPopup();
+
+                        getAddress(latitude, longitude);
+
+                        document.getElementById("latitude").innerText = latitude;
+                        document.getElementById("longitude").innerText = longitude;
+                    </script>
+                </div>
+            </section>
+            <section class="batterie">
+                <div class="history">
+                    <h1>Hitorique niveaux de charge</h1>
+                    <div class="value">
+                        <img src="ressources/battery.png" alt="" class="value_icon"><h6>15%</h6> <h6 class="date">Aujourd'huis 12:00</h6>
+                    </div>
+                    <div class="value">
+                        <img src="ressources/battery.png" alt="" class="value_icon"><h6>15%</h6> <h6 class="date">Aujourd'huis 12:00</h6>
+                    </div>
+                    <div class="value">
+                        <img src="ressources/battery.png" alt="" class="value_icon"><h6>15%</h6> <h6 class="date">Aujourd'huis 12:00</h6>
+                    </div>
+                    <div class="value">
+                        <img src="ressources/battery.png" alt="" class="value_icon"><h6>15%</h6> <h6 class="date">Aujourd'huis 12:00</h6>
+                    </div>
+                    <div class="value">
+                        <img src="ressources/battery.png" alt="" class="value_icon"><h6>15%</h6> <h6 class="date">Aujourd'huis 12:00</h6>
+                    </div>
+                    <div class="value">
+                        <img src="ressources/battery.png" alt="" class="value_icon"><h6>15%</h6> <h6 class="date">Aujourd'huis 12:00</h6>
+                    </div>
+                    <div class="value">
+                        <img src="ressources/battery.png" alt="" class="value_icon"><h6>15%</h6> <h6 class="date">Aujourd'huis 12:00</h6>
+                    </div>
+                    <div class="value">
+                        <img src="ressources/battery.png" alt="" class="value_icon"><h6>15%</h6> <h6 class="date">Aujourd'huis 12:00</h6>
+                    </div>
+                </div>
+                <div class="graph">
+                    <canvas id="batterie_graph"></canvas>
+                    <script>
+                        var data = {
+                            labels: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin"],
+                            datasets: [{
+                                label: "Niveaux de charge",
+                                data: [12, 19, 3, 5, 2, 3],
+                                backgroundColor: 'rgba(14, 159, 110, 1)',
+                                borderColor: 'rgba(14, 159, 110, 1)',
+                                borderWidth: 1
+                            }]
+                        };
+
+                        var options = {
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                            }
+                        };
+
+                        var ctx = document.getElementById('batterie_graph').getContext('2d');
+                        var myChart = new Chart(ctx, {
+                            type: 'line',
+                            data: data,
+                            options: options
+                        });
+                    </script>
+                </div>
+            </section>
+            <section class="poids">
+                <div class="graph">
+                    <canvas id="poids_graph"></canvas>
+                    <script>
+                        var data = {
+                            labels: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin"],
+                            datasets: [{
+                                label: "Poids",
+                                data: [12, 19, 3, 5, 2, 3],
+                                backgroundColor: 'rgba(14, 159, 110, 1)',
+                                borderColor: 'rgba(14, 159, 110, 1)',
+                                borderWidth: 1
+                            }]
+                        };
+
+                        var options = {
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                            }
+                        };
+
+                        var ctx = document.getElementById('poids_graph').getContext('2d');
+                        var myChart = new Chart(ctx, {
+                            type: 'line',
+                            data: data,
+                            options: options
+                        });
+                    </script>
+                </div>
+                <div class="history">
+                    <h1>Hitorique niveaux du poids</h1>
+                    <div class="value">
+                        <img src="ressources/kilo.png" alt="" class="value_icon"><h6>15Kg</h6> <h6 class="date">Aujourd'huis 12:00</h6>
+                    </div>
+                    <div class="value">
+                        <img src="ressources/kilo.png" alt="" class="value_icon"><h6>15Kg</h6> <h6 class="date">Aujourd'huis 12:00</h6>
+                    </div>
+                    <div class="value">
+                        <img src="ressources/kilo.png" alt="" class="value_icon"><h6>15Kg</h6> <h6 class="date">Aujourd'huis 12:00</h6>
+                    </div>
+                    <div class="value">
+                        <img src="ressources/kilo.png" alt="" class="value_icon"><h6>15Kg</h6> <h6 class="date">Aujourd'huis 12:00</h6>
+                    </div>
+                    <div class="value">
+                        <img src="ressources/kilo.png" alt="" class="value_icon"><h6>15Kg</h6> <h6 class="date">Aujourd'huis 12:00</h6>
+                    </div>
+                    <div class="value">
+                        <img src="ressources/kilo.png" alt="" class="value_icon"><h6>15Kg</h6> <h6 class="date">Aujourd'huis 12:00</h6>
+                    </div>
+                    <div class="value">
+                        <img src="ressources/kilo.png" alt="" class="value_icon"><h6>15Kg</h6> <h6 class="date">Aujourd'huis 12:00</h6>
+                    </div>
+                    <div class="value">
+                        <img src="ressources/kilo.png" alt="" class="value_icon"><h6>15Kg</h6> <h6 class="date">Aujourd'huis 12:00</h6>
+                    </div>
+                    
+                </div>
+            </section>
+        </section>
+    </section>
+    
+</body>
+</html>

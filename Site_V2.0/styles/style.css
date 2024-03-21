@@ -1,0 +1,118 @@
+body {
+    background: rgb(255,255,255);
+    background: linear-gradient(160deg, rgba(255,255,255,1) 0%, rgba(14,159,110,1) 100%);
+    background-repeat: no-repeat;
+    margin: 0px;
+    font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+    font-size: medium;
+    overflow-x: hidden;
+}
+
+/* NavBar Horizontal */
+
+.navbar {
+    background-color: rgb(255, 255, 255);
+    background: rgba(252, 252, 252, 0);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5.1px);
+    -webkit-backdrop-filter: blur(5.1px);
+    border: 1px solid rgba(252, 252, 252, 0.38);
+    height: 50px;
+    position: sticky;
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 25px;
+    margin: 10px;
+}
+
+.pages {
+    margin-left: 10px;
+    margin-right: 10px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+}
+
+.pages_name {
+    text-decoration: none;
+    text-align: center;
+    color: #000000;
+    font-size: small;
+    margin-left: 25px;
+    margin-right: 25px;
+}
+
+.pages_name:hover {
+    color: #0E9F6E;
+    font-weight: bolder;
+    cursor: pointer;
+}
+
+.login {
+    margin-left: auto;
+    margin-right: 10px;
+    height: 50px;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+
+.login_icon {
+    height: 20px;
+}
+
+.login_button {
+    text-decoration: none;
+    text-align: center;
+    font-size: small;
+    margin-left: 10px;
+    color: rgb(95, 95, 95);
+}
+
+.login_button:hover {
+    color: #0E9F6E;
+    font-weight: bolder;
+}
+
+.login:hover {
+    cursor: pointer;
+}
+
+.slash {
+    margin-left: 10px;
+}
+
+
+/* Title */
+
+.Title {
+    background: rgba(252, 252, 252, 0);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5.1px);
+    -webkit-backdrop-filter: blur(5.1px);
+    border: 1px solid rgba(252, 252, 252, 0.38);
+    height: 400px;
+    margin: 5px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.title_text {
+    font-size: 80px;
+    margin-left: 30px;
+    font-weight: bold;
+}
+
+.bee {
+    height: 400px;
+    margin-left: auto;
+}
+
+.icon {
+    width: 20px;
+    margin-left: 5px;
+}

@@ -36,7 +36,7 @@ TinyGPSPlus gps;
 SoftwareSerial SIM900(7, 8);
 
 String command = "";
-String phoneNumber = "+33695468219";
+String phoneNumber = "+33769996016";
 String prefix = "R";
 
 unsigned long previousMillis = 0;
@@ -85,43 +85,27 @@ void setup() {
 }
 
 void loop() {
-  //Boucle de détéction des commandes
-  if (SIM900.available() > 0){
-    char incoming_char = SIM900.read();
-    if (incoming_char == prefix.charAt(0)) {
-      Serial.println("Comande reçue !");
-      for (int i = 0; i < 3; ++i) {
-        while (!SIM900.available()) {}
-        incoming_char = SIM900.read();
-        command += incoming_char;
-      }
-      if(command == "bat"){
-        Serial.println("Commande Batterie");
-        sendSMS(getBatterie());
-        Serial.println("Message Envoye !");
-      }
-      if(command == "gps"){
-        Serial.println("Commande GPS");
-        SIM900.end();
-        gpsSerial.begin(9600);
-        getCoords();
-        Serial.println("Coordonees Obtenue !");
-        gpsSerial.end();
-        delay(100);
-        SIM900.begin(19200);
-        coords = "[" + latitude + ", " + longitude + "]";
-        sendSMS(coords);
-        Serial.println("Message Envoye !");
-      }
-      if(command == "pds"){
-        Serial.println("Commande Poids");
-        float poids = getMasse();
-        sendSMS(String(poids));
-        Serial.println("Message Envoye !");
-      }
-    }
-  }
-  command = "";
+  String batterie = getBatterie();
+  String poids = String(getMasse());
+  SIM900.end();
+  delay(1000);
+  gpsSerial.begin(9600);
+  getCoords();
+  gpsSerial.end();
+  delay(1000);
+  SIM900.begin(19200);
+  Serial.print("Latitude: ");
+  Serial.println(latitude);
+  Serial.print("Longitude: ");
+  Serial.println(longitude);
+  Serial.print("Batterie: ");
+  Serial.println(batterie);
+  Serial.print("Poids: ");
+  Serial.println(poids);
+  sendSMS("{\"coordsLat\":" + latitude + ",\"coordsLng\":" + longitude + ",\"battery\":" + batterie + ",\"weight\":" + poids + "}");
+  sendSMS("test");
+  Serial.println("Message Envoye !");
+  delay(298000);
 }
 
 //Fonction pour envoyer un SMS sous forme de variable STRING

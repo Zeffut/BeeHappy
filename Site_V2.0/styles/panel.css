@@ -1,0 +1,161 @@
+.connected_menu {
+    margin-left: auto;
+    margin-right: 10px;
+}
+
+.profile {
+    height: 30px;
+}
+
+.vertical_navbar {
+    width: 20%;
+    height: auto;
+    margin-bottom: 5px;
+    background: rgb(255, 255, 255);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5.1px);
+    -webkit-backdrop-filter: blur(5.1px);
+    border: 1px solid rgba(252, 252, 252, 0.38);
+    margin: 5px;
+    border-radius: 16px;
+}
+
+.menus {
+    font-size: smaller;
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.page {
+    display: flex;
+}
+
+.stats {
+    display: inline;
+}
+
+.location {
+    width: 99%;
+    height: 515px;
+    background: rgb(255, 255, 255);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5.1px);
+    -webkit-backdrop-filter: blur(5.1px);
+    border: 1px solid rgba(252, 252, 252, 0.38);
+    margin: 5px;
+    border-radius: 16px;
+    display: flex;
+}
+
+#map {
+    margin: 15px;
+    margin-top: 20px;
+    border-radius: 16px;
+    height: 425px;
+    width: 95%;
+}
+
+h1 {
+    margin-left: 20px;
+    font-size: larger;
+    font-weight: bold;
+}
+
+.map {
+    width: 60%;
+}
+
+.infos {
+    margin-top: 75px;
+    margin-bottom: 25px;
+    width: 38%;
+}
+
+.texte_info {
+    margin-left: 30px;
+    margin-bottom: 50px;
+}
+
+.batterie {
+    width: 100%;
+    height: 420px;
+    margin-left: 0px;
+    display: flex;
+}
+
+.poids {
+    width: 100%;
+    height: 420px;
+    margin-left: 0px;
+    display: flex;
+}
+
+.history {
+    width: 35%;
+    background: rgb(255, 255, 255);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5.1px);
+    -webkit-backdrop-filter: blur(5.1px);
+    border: 1px solid rgba(252, 252, 252, 0.38);
+    margin: 5px;
+    border-radius: 16px;
+}
+
+.graph {
+    width: 65%;
+    background: rgb(255, 255, 255);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5.1px);
+    -webkit-backdrop-filter: blur(5.1px);
+    border: 1px solid rgba(252, 252, 252, 0.38);
+    margin: 5px;
+    border-radius: 16px;
+}
+
+.live_infos {
+    width: 99%;
+    background: rgb(255, 255, 255);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5.1px);
+    -webkit-backdrop-filter: blur(5.1px);
+    border: 1px solid rgba(252, 252, 252, 0.38);
+    margin: 5px;
+    border-radius: 16px;
+}
+
+.live_value {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    background-color: aqua;
+}
+
+.live_info {
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+canvas {
+    margin: 10px;
+}
+
+.value {
+    display: flex;
+    height: 40px;
+    margin: 15px;
+    margin-top: 0px;
+    align-items: center;
+    border-radius: 16px;
+    margin-bottom: 0px;
+}
+
+.value_icon {
+    height: 30px;
+    margin-right: 15px;
+}
+
+.date {
+    margin-left: auto;
+    margin-right: 15px;
+}
