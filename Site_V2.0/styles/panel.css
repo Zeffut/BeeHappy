@@ -128,12 +128,22 @@ h1 {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    background-color: aqua;
 }
 
-.live_info {
-    margin-left: 20%;
-    margin-right: 20%;
+.live_battery {
+    margin-left: 10%;
+    text-align: center;
+}
+
+.live_poids {
+    margin-right: 10%;
+    text-align: center;
+}
+
+
+.value_text {
+    font-size: 100px;
+    color: rgba(14,159,110,1);
 }
 
 canvas {
@@ -158,4 +168,8 @@ canvas {
 .date {
     margin-left: auto;
     margin-right: 15px;
+}
+
+.image {
+    width: 200px;
 }
