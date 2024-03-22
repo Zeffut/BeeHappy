@@ -49,11 +49,46 @@
                 <div class="live_value">
                     <div class="live_battery">
                         <h1>Batterie</h1>
-                        <h2 class="value_text">100%</h2>
+                        <h2 class="value_text" id="battery"></h2>
+                        <script>
+                            const batteryHTML = document.getElementById('battery');
+                            function updateBattery() {
+                                const urlActuel = 'humble-mantis-evident.ngrok-free.app';
+                                fetch(`${urlActuel}/api/get/battery`)
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        console.log('Données récupérées depuis le serveur :', data);
+                                        batteryHTML.innerHTML = data['battery'] + '%';
+                                    })
+                                    .catch(error => {
+                                        console.error('Erreur lors de la récupération des données :', error);
+                                        batteryHTML.innerHTML = "indisponible";
+                                    });
+                            }
+                            updateBattery();
+                        </script>
+                        
                     </div>
                     <div class="live_poids">
                         <h1>Poids</h1>
-                        <h2 class="value_text">100Kg</h2>
+                        <h2 class="value_text" id="poids"></h2>
+                        <script>
+                            const poidsHTML = document.getElementById('poids');
+                            function updatePoids() {
+                                const urlActuel = 'humble-mantis-evident.ngrok-free.app';
+                                fetch(`${urlActuel}/api/get/weight`)
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        console.log('Données récupérées depuis le serveur :', data);
+                                        poidsHTML.innerHTML = data['weight'] + 'kg';
+                                    })
+                                    .catch(error => {
+                                        console.error('Erreur lors de la récupération des données :', error);
+                                        poidsHTML.innerHTML = "indisponible";
+                                    });
+                            }
+                            updatePoids();
+                        </script>
                     </div>
                 </div>
             </section>
@@ -112,7 +147,6 @@
             </section>
             <section class="batterie">
                 <div class="history">
-                    <h1>Historique du niveaux de charge</h1>
                     <div id="battery_table"></div>
                 </div>
                 <div class="graph">
@@ -161,7 +195,7 @@
 
                             var headerRow = document.createElement("tr");
                             var labelCell = document.createElement("th");
-                            labelCell.appendChild(document.createTextNode("Mois"));
+                            labelCell.appendChild(document.createTextNode("Date"));
                             headerRow.appendChild(labelCell);
                             var valueCell = document.createElement("th");
                             valueCell.appendChild(document.createTextNode("Poids"));
