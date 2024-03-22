@@ -36,7 +36,7 @@ TinyGPSPlus gps;
 SoftwareSerial SIM900(7, 8);
 
 String command = "";
-String phoneNumber = "+33695468219"; //numéro ruche +33769996016
+String phoneNumber = "+33769996016"; //numéro ruche +33769996016
 String prefix = "R";
 
 unsigned long previousMillis = 0;

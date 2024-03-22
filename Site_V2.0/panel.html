@@ -53,21 +53,20 @@
                         <script>
                             const batteryHTML = document.getElementById('battery');
                             function updateBattery() {
-                                const urlActuel = 'humble-mantis-evident.ngrok-free.app';
-                                fetch(`${urlActuel}/api/get/battery`)
+                                fetch(`https://humble-mantis-evident.ngrok-free.app/api/get/battery/1`)
                                     .then(response => response.json())
                                     .then(data => {
                                         console.log('Données récupérées depuis le serveur :', data);
-                                        batteryHTML.innerHTML = data['battery'] + '%';
+                                        batteryHTML.innerHTML = data[0]['battery'] + '%';
                                     })
                                     .catch(error => {
-                                        console.error('Erreur lors de la récupération des données :', error);
+                                        console.log('Erreur lors de la récupération des données :', error);
                                         batteryHTML.innerHTML = "indisponible";
                                     });
                             }
                             updateBattery();
                         </script>
-                        
+
                     </div>
                     <div class="live_poids">
                         <h1>Poids</h1>
@@ -75,12 +74,11 @@
                         <script>
                             const poidsHTML = document.getElementById('poids');
                             function updatePoids() {
-                                const urlActuel = 'humble-mantis-evident.ngrok-free.app';
-                                fetch(`${urlActuel}/api/get/weight`)
+                                fetch(`https://humble-mantis-evident.ngrok-free.app/api/get/weight/1`)
                                     .then(response => response.json())
                                     .then(data => {
                                         console.log('Données récupérées depuis le serveur :', data);
-                                        poidsHTML.innerHTML = data['weight'] + 'kg';
+                                        poidsHTML.innerHTML = data[0]['weight'] + 'kg';
                                     })
                                     .catch(error => {
                                         console.error('Erreur lors de la récupération des données :', error);
@@ -159,15 +157,43 @@
                     <canvas id="poids_graph"></canvas>
                 </div>
                 <div class="history">
+                    <label for="periode">Choisir une période :</label>
+                    <select id="periode" onchange="afficherDiv()">
+                        <option value="24h">24 dernières heures</option>
+                        <option value="7jours">7 derniers jours</option>
+                        <option value="mois">Dernier mois</option>
+                        <option value="toujours">Depuis toujours</option>
+                    </select>
+
+                    <div id="periode_24h" class="periode">Contenu pour les 24 dernières heures</div>
+                    <div id="periode_7jours" class="periode">Contenu pour les 7 derniers jours</div>
+                    <div id="periode_mois" class="periode">Contenu pour le dernier mois</div>
+                    <div id="periode_toujours" class="periode">Contenu depuis toujours</div>
+
+                    <script>
+                        function afficherDiv() {
+                            var selectBox = document.getElementById("periode");
+                            var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+                            var divs = document.querySelectorAll('.periode');
+                    
+                            for (var i = 0; i < divs.length; i++) {
+                                divs[i].style.display = 'none';
+                            }
+                    
+                            document.getElementById("periode_" + selectedValue).style.display = 'block';
+                        }
+                    </script>
+
                     <div id="tableau_poids"></div>
                     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                     <script>
                         window.onload = function() {
+                            
                             var poids = {
-                                labels: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin"],
+                                labels: ["26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56"],
                                 datasets: [{
-                                    label: "Poids",
-                                    data: [12, 19, 3, 5, 2, 3],
+                                    label: "Poids(kg)",
+                                    data: [125, 125, 125, 125, 125, 125, 125, 125, 125, 125, 125, 125, 125, 125, 125, 125, 125, 125, 125, 125, 125],
                                     backgroundColor: 'rgba(14, 159, 110, 1)',
                                     borderColor: 'rgba(14, 159, 110, 1)',
                                     borderWidth: 1
@@ -218,10 +244,10 @@
                             tableauDiv.appendChild(tbl);
                         };
                         var battery = {
-                                labels: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Janvier", "Février", "Mars", "Avril", "Mai", "Juin"],
+                            labels: ["26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56"],
                                 datasets: [{
-                                    label: "Niveaux de charge",
-                                    data: [12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3],
+                                    label: "Poids(kg)",
+                                    data: [125, 125, 125, 125, 125, 125, 125, 125, 125, 125, 125, 125, 125, 125, 125, 125, 125, 125, 125, 125, 125],
                                     backgroundColor: 'rgba(14, 159, 110, 1)',
                                     borderColor: 'rgba(14, 159, 110, 1)',
                                     borderWidth: 1

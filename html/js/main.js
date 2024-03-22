@@ -2,11 +2,9 @@
 
 	"use strict";
 
-	var urlActuel = window.location.href;
-
 	var batteryUpdateValue = function() {
 		let batteryHTML = document.getElementById("battery"); // on recupere la ligne HTML contenant le pourcentage de charge
-		fetch(`${urlActuel}/api/get/battery`) // on recupere les donnée renvoyer par l'api
+		fetch(`https://humble-mantis-evident.ngrok-free.app/api/get/battery/2`) // on recupere les donnée renvoyer par l'api
 		.then(response => response.json()) // on transforme la les donnée des 
 		.then(data => {
 			console.log('Données récupérées depuis le serveur :', data);
@@ -21,7 +19,7 @@
 	var weightUpdateValue = function() {
 		var weightHTML = document.getElementById("weight"); // on recupere la ligne HTML contenant le poids de la ruche
 	
-		fetch(`${urlActuel}/api/get/weight`) // on recupere les donnée renvoyer par l'api
+		fetch(`https://humble-mantis-evident.ngrok-free.app/api/get/weight`) // on recupere les donnée renvoyer par l'api
 		.then(response => response.json()) // on transforme les data en JSON
 		.then(data => {
 			console.log('Données récupérées depuis le serveur :', data);
@@ -34,7 +32,7 @@
 	};
 	
 	var locationUpdateValue = function() {
-		fetch(`${urlActuel}/api/get/coords`) // on recupere les donnée renvoyer par l'api
+		fetch(`https://humble-mantis-evident.ngrok-free.app/api/get/coords`) // on recupere les donnée renvoyer par l'api
 		.then(response => response.json()) // on transforme la réponse en json 
 		.then(data => {
 			console.log('Données récupérées depuis le serveur :', data);
