@@ -113,128 +113,133 @@
             <section class="batterie">
                 <div class="history">
                     <h1>Historique du niveaux de charge</h1>
-                    <div class="value">
-                        <img src="ressources/battery_icon.png" alt="" class="value_icon"><h6>15%</h6> <h6 class="date">Aujourd'huis 12:00</h6>
-                    </div>
-                    <div class="value">
-                        <img src="ressources/battery_icon.png" alt="" class="value_icon"><h6>15%</h6> <h6 class="date">Aujourd'huis 12:00</h6>
-                    </div>
-                    <div class="value">
-                        <img src="ressources/battery_icon.png" alt="" class="value_icon"><h6>15%</h6> <h6 class="date">Aujourd'huis 12:00</h6>
-                    </div>
-                    <div class="value">
-                        <img src="ressources/battery_icon.png" alt="" class="value_icon"><h6>15%</h6> <h6 class="date">Aujourd'huis 12:00</h6>
-                    </div>
-                    <div class="value">
-                        <img src="ressources/battery_icon.png" alt="" class="value_icon"><h6>15%</h6> <h6 class="date">Aujourd'huis 12:00</h6>
-                    </div>
-                    <div class="value">
-                        <img src="ressources/battery_icon.png" alt="" class="value_icon"><h6>15%</h6> <h6 class="date">Aujourd'huis 12:00</h6>
-                    </div>
-                    <div class="value">
-                        <img src="ressources/battery_icon.png" alt="" class="value_icon"><h6>15%</h6> <h6 class="date">Aujourd'huis 12:00</h6>
-                    </div>
-                    <div class="value">
-                        <img src="ressources/battery_icon.png" alt="" class="value_icon"><h6>15%</h6> <h6 class="date">Aujourd'huis 12:00</h6>
-                    </div>
+                    <div id="battery_table"></div>
                 </div>
                 <div class="graph">
                     <canvas id="batterie_graph"></canvas>
-                    <script>
-                        var data = {
-                            labels: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin"],
-                            datasets: [{
-                                label: "Niveaux de charge",
-                                data: [12, 19, 3, 5, 2, 3],
-                                backgroundColor: 'rgba(14, 159, 110, 1)',
-                                borderColor: 'rgba(14, 159, 110, 1)',
-                                borderWidth: 1
-                            }]
-                        };
-
-                        var options = {
-                            scales: {
-                                yAxes: [{
-                                    ticks: {
-                                        beginAtZero: true
-                                    }
-                                }]
-                            }
-                        };
-
-                        var ctx = document.getElementById('batterie_graph').getContext('2d');
-                        var myChart = new Chart(ctx, {
-                            type: 'line',
-                            data: data,
-                            options: options
-                        });
-                    </script>
+                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                 </div>
             </section>
             <section class="poids">
                 <div class="graph">
                     <canvas id="poids_graph"></canvas>
-                    <script>
-                        var data = {
-                            labels: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin"],
-                            datasets: [{
-                                label: "Poids",
-                                data: [12, 19, 3, 5, 2, 3],
-                                backgroundColor: 'rgba(14, 159, 110, 1)',
-                                borderColor: 'rgba(14, 159, 110, 1)',
-                                borderWidth: 1
-                            }]
-                        };
-
-                        var options = {
-                            scales: {
-                                yAxes: [{
-                                    ticks: {
-                                        beginAtZero: true
-                                    }
-                                }]
-                            }
-                        };
-
-                        var ctx = document.getElementById('poids_graph').getContext('2d');
-                        var myChart = new Chart(ctx, {
-                            type: 'line',
-                            data: data,
-                            options: options
-                        });
-                    </script>
                 </div>
                 <div class="history">
-                    <h1>Historique du poids</h1>
-                    <div class="value">
-                        <img src="ressources/kilo.png" alt="" class="value_icon"><h6>15Kg</h6> <h6 class="date">Aujourd'huis 12:00</h6>
-                    </div>
-                    <div class="value">
-                        <img src="ressources/kilo.png" alt="" class="value_icon"><h6>15Kg</h6> <h6 class="date">Aujourd'huis 12:00</h6>
-                    </div>
-                    <div class="value">
-                        <img src="ressources/kilo.png" alt="" class="value_icon"><h6>15Kg</h6> <h6 class="date">Aujourd'huis 12:00</h6>
-                    </div>
-                    <div class="value">
-                        <img src="ressources/kilo.png" alt="" class="value_icon"><h6>15Kg</h6> <h6 class="date">Aujourd'huis 12:00</h6>
-                    </div>
-                    <div class="value">
-                        <img src="ressources/kilo.png" alt="" class="value_icon"><h6>15Kg</h6> <h6 class="date">Aujourd'huis 12:00</h6>
-                    </div>
-                    <div class="value">
-                        <img src="ressources/kilo.png" alt="" class="value_icon"><h6>15Kg</h6> <h6 class="date">Aujourd'huis 12:00</h6>
-                    </div>
-                    <div class="value">
-                        <img src="ressources/kilo.png" alt="" class="value_icon"><h6>15Kg</h6> <h6 class="date">Aujourd'huis 12:00</h6>
-                    </div>
-                    <div class="value">
-                        <img src="ressources/kilo.png" alt="" class="value_icon"><h6>15Kg</h6> <h6 class="date">Aujourd'huis 12:00</h6>
-                    </div>
-                    
+                    <div id="tableau_poids"></div>
+                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                    <script>
+                        window.onload = function() {
+                            var poids = {
+                                labels: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin"],
+                                datasets: [{
+                                    label: "Poids",
+                                    data: [12, 19, 3, 5, 2, 3],
+                                    backgroundColor: 'rgba(14, 159, 110, 1)',
+                                    borderColor: 'rgba(14, 159, 110, 1)',
+                                    borderWidth: 1
+                                }]
+                            };
+
+                            var ctx = document.getElementById('poids_graph').getContext('2d');
+                            var myChart = new Chart(ctx, {
+                                type: 'line',
+                                data: poids,
+                                options: {
+                                    scales: {
+                                        yAxes: [{
+                                            ticks: {
+                                                beginAtZero: true
+                                            }
+                                        }]
+                                    }
+                                }
+                            });
+
+                            var tableauDiv = document.getElementById("tableau_poids");
+                            var tbl = document.createElement("table");
+                            var tblBody = document.createElement("tbody");
+
+                            var headerRow = document.createElement("tr");
+                            var labelCell = document.createElement("th");
+                            labelCell.appendChild(document.createTextNode("Mois"));
+                            headerRow.appendChild(labelCell);
+                            var valueCell = document.createElement("th");
+                            valueCell.appendChild(document.createTextNode("Poids"));
+                            headerRow.appendChild(valueCell);
+                            tblBody.appendChild(headerRow);
+
+                            for (var i = 0; i < poids.labels.length; i++) {
+                                var row = document.createElement("tr");
+                                var labelCell = document.createElement("td");
+                                labelCell.appendChild(document.createTextNode(poids.labels[i]));
+                                row.appendChild(labelCell);
+                                var valueCell = document.createElement("td");
+                                valueCell.appendChild(document.createTextNode(poids.datasets[0].data[i]));
+                                row.appendChild(valueCell);
+                                tblBody.appendChild(row);
+                            }
+
+                            tbl.appendChild(tblBody);
+                            tbl.setAttribute("border", "2");
+                            tableauDiv.appendChild(tbl);
+                        };
+                        var battery = {
+                                labels: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Janvier", "Février", "Mars", "Avril", "Mai", "Juin"],
+                                datasets: [{
+                                    label: "Niveaux de charge",
+                                    data: [12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3],
+                                    backgroundColor: 'rgba(14, 159, 110, 1)',
+                                    borderColor: 'rgba(14, 159, 110, 1)',
+                                    borderWidth: 1
+                                }]
+                            };
+
+                            var ctx = document.getElementById('batterie_graph').getContext('2d');
+                            var myChart = new Chart(ctx, {
+                                type: 'line',
+                                data: battery,
+                                options: {
+                                    scales: {
+                                        yAxes: [{
+                                            ticks: {
+                                                beginAtZero: true
+                                            }
+                                        }]
+                                    }
+                                }
+                            })
+
+                            var tableauDiv = document.getElementById("battery_table");
+                            var tbl = document.createElement("table");
+                            var tblBody = document.createElement("tbody");
+
+                            var headerRow = document.createElement("tr");
+                            var labelCell = document.createElement("th");
+                            labelCell.appendChild(document.createTextNode("Mois"));
+                            headerRow.appendChild(labelCell);
+                            var valueCell = document.createElement("th");
+                            valueCell.appendChild(document.createTextNode("Niveaux de charge"));
+                            headerRow.appendChild(valueCell);
+                            tblBody.appendChild(headerRow);
+
+                            for (var i = 0; i < battery.labels.length; i++) {
+                                var row = document.createElement("tr");
+                                var labelCell = document.createElement("td");
+                                labelCell.appendChild(document.createTextNode(battery.labels[i]));
+                                row.appendChild(labelCell);
+                                var valueCell = document.createElement("td");
+                                valueCell.appendChild(document.createTextNode(battery.datasets[0].data[i]));
+                                row.appendChild(valueCell);
+                                tblBody.appendChild(row);
+                            }
+
+                            tbl.appendChild(tblBody);
+                            tbl.setAttribute("border", "2");
+                            tableauDiv.appendChild(tbl);
+                    </script>
                 </div>
             </section>
         </section>
     </section>
-    
 </body>
 </html>
