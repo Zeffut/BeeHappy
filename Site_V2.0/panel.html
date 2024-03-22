@@ -165,7 +165,7 @@
                         <option value="toujours">Depuis toujours</option>
                     </select>
 
-                    <div id="periode_24h" class="periode">Contenu pour les 24 dernières heures</div>
+                    <div id="periode_24h" class="periode"><div id="tableau_poids"></div></div>
                     <div id="periode_7jours" class="periode">Contenu pour les 7 derniers jours</div>
                     <div id="periode_mois" class="periode">Contenu pour le dernier mois</div>
                     <div id="periode_toujours" class="periode">Contenu depuis toujours</div>
@@ -183,12 +183,26 @@
                             document.getElementById("periode_" + selectedValue).style.display = 'block';
                         }
                     </script>
-
-                    <div id="tableau_poids"></div>
                     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                     <script>
                         window.onload = function() {
-                            
+                            var baterry_list = []
+
+                            function getBattery(number) {
+                                fetch(`https://humble-mantis-evident.ngrok-free.app/api/get/battery/${number}`)
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        for (let i = 0; i < data.length; i++) {
+                                               battery_list.push(data[i]['battery'])
+                                        }
+                                        console.log('Données récupérées depuis le serveur :', data);
+                                        //batteryHTML.innerHTML = data[0]['battery'] + '%';
+                                    })
+                                    .catch(error => {
+                                        console.log('Erreur lors de la récupération des données :', error);
+                                        batteryHTML.innerHTML = "indisponible";
+                                    });
+                            }
                             var poids = {
                                 labels: ["26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56"],
                                 datasets: [{
@@ -246,8 +260,8 @@
                         var battery = {
                             labels: ["26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56"],
                                 datasets: [{
-                                    label: "Poids(kg)",
-                                    data: [125, 125, 125, 125, 125, 125, 125, 125, 125, 125, 125, 125, 125, 125, 125, 125, 125, 125, 125, 125, 125],
+                                    label: "Batterie",
+                                    data: battery_list,
                                     backgroundColor: 'rgba(14, 159, 110, 1)',
                                     borderColor: 'rgba(14, 159, 110, 1)',
                                     borderWidth: 1
