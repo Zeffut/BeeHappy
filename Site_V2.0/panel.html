@@ -86,19 +86,7 @@
                     <canvas id="poids_graph"></canvas>
                 </div>
                 <div class="history">
-                    <label for="periode">Choisir une période :</label>
-                    <select id="periode" onchange="afficherDiv()">
-                        <option value="default"></option>
-                        <option value="24h">24 dernières heures</option>
-                        <option value="7jours">7 derniers jours</option>
-                        <option value="mois">Dernier mois</option>
-                        <option value="toujours">Depuis toujours</option>
-                    </select>
-
-                    <div id="periode_24h" class="periode"><div id="tableau_poids"></div></div>
-                    <div id="periode_7jours" class="periode"><tbody id="table-body"></tbody></div>
-                    <div id="periode_mois" class="periode">Contenu pour le dernier mois</div>
-                    <div id="periode_toujours" class="periode">Contenu depuis toujours</div>
+                    <div id="poids_table"></div>
                 </div>
             </section>
         </section>
