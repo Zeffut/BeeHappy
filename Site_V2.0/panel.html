@@ -50,43 +50,11 @@
                     <div class="live_battery">
                         <h1>Batterie</h1>
                         <h2 class="value_text" id="battery"></h2>
-                        <script>
-                            const batteryHTML = document.getElementById('battery');
-                            function updateBattery() {
-                                fetch(`https://humble-mantis-evident.ngrok-free.app/api/get/battery/1`)
-                                    .then(response => response.json())
-                                    .then(data => {
-                                        console.log('Données récupérées depuis le serveur :', data);
-                                        batteryHTML.innerHTML = data[0]['battery'] + '%';
-                                    })
-                                    .catch(error => {
-                                        console.log('Erreur lors de la récupération des données :', error);
-                                        batteryHTML.innerHTML = "indisponible";
-                                    });
-                            }
-                            updateBattery();
-                        </script>
 
                     </div>
                     <div class="live_poids">
                         <h1>Poids</h1>
                         <h2 class="value_text" id="poids"></h2>
-                        <script>
-                            const poidsHTML = document.getElementById('poids');
-                            function updatePoids() {
-                                fetch(`https://humble-mantis-evident.ngrok-free.app/api/get/weight/1`)
-                                    .then(response => response.json())
-                                    .then(data => {
-                                        console.log('Données récupérées depuis le serveur :', data);
-                                        poidsHTML.innerHTML = data[0]['weight'] + 'kg';
-                                    })
-                                    .catch(error => {
-                                        console.error('Erreur lors de la récupération des données :', error);
-                                        poidsHTML.innerHTML = "indisponible";
-                                    });
-                            }
-                            updatePoids();
-                        </script>
                     </div>
                 </div>
             </section>
@@ -103,44 +71,6 @@
                     <h1>Longitude</h1>
                     <div id="longitude" class="texte_info"></div>
                     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-                    <script>
-                        function getAddress(latitude, longitude) {
-                            var xhr = new XMLHttpRequest();
-                            var url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=18&addressdetails=1`;
-
-                            xhr.onreadystatechange = function() {
-                                if (xhr.readyState === XMLHttpRequest.DONE) {
-                                    if (xhr.status === 200) {
-                                        var response = JSON.parse(xhr.responseText);
-                                        var address = response.display_name;
-                                        document.getElementById("address").innerText = address;
-                                    } else {
-                                        console.error('Erreur lors de la requête : ' + xhr.status);
-                                    }
-                                }
-                            };
-
-                            xhr.open('GET', url, true);
-                            xhr.send();
-                        }
-
-                        latitude = 48.8588897
-                        longitude = 2.320041
-
-                        var map = L.map('map').setView([latitude, longitude], 13);
-
-                        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                            attribution: ''
-                        }).addTo(map);
-                        L.marker([latitude, longitude]).addTo(map)
-                            .bindPopup('Ruche')
-                            .openPopup();
-
-                        getAddress(latitude, longitude);
-
-                        document.getElementById("latitude").innerText = latitude;
-                        document.getElementById("longitude").innerText = longitude;
-                    </script>
                 </div>
             </section>
             <section class="batterie">
@@ -149,7 +79,6 @@
                 </div>
                 <div class="graph">
                     <canvas id="batterie_graph"></canvas>
-                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                 </div>
             </section>
             <section class="poids">
@@ -159,6 +88,7 @@
                 <div class="history">
                     <label for="periode">Choisir une période :</label>
                     <select id="periode" onchange="afficherDiv()">
+                        <option value="default"></option>
                         <option value="24h">24 dernières heures</option>
                         <option value="7jours">7 derniers jours</option>
                         <option value="mois">Dernier mois</option>
@@ -166,154 +96,13 @@
                     </select>
 
                     <div id="periode_24h" class="periode"><div id="tableau_poids"></div></div>
-                    <div id="periode_7jours" class="periode">Contenu pour les 7 derniers jours</div>
+                    <div id="periode_7jours" class="periode"><tbody id="table-body"></tbody></div>
                     <div id="periode_mois" class="periode">Contenu pour le dernier mois</div>
                     <div id="periode_toujours" class="periode">Contenu depuis toujours</div>
-
-                    <script>
-                        function afficherDiv() {
-                            var selectBox = document.getElementById("periode");
-                            var selectedValue = selectBox.options[selectBox.selectedIndex].value;
-                            var divs = document.querySelectorAll('.periode');
-                    
-                            for (var i = 0; i < divs.length; i++) {
-                                divs[i].style.display = 'none';
-                            }
-                    
-                            document.getElementById("periode_" + selectedValue).style.display = 'block';
-                        }
-                    </script>
-                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-                    <script>
-                        window.onload = function() {
-                            var baterry_list = []
-
-                            function getBattery(number) {
-                                fetch(`https://humble-mantis-evident.ngrok-free.app/api/get/battery/${number}`)
-                                    .then(response => response.json())
-                                    .then(data => {
-                                        for (let i = 0; i < data.length; i++) {
-                                               battery_list.push(data[i]['battery'])
-                                        }
-                                        console.log('Données récupérées depuis le serveur :', data);
-                                        //batteryHTML.innerHTML = data[0]['battery'] + '%';
-                                    })
-                                    .catch(error => {
-                                        console.log('Erreur lors de la récupération des données :', error);
-                                        batteryHTML.innerHTML = "indisponible";
-                                    });
-                            }
-                            var poids = {
-                                labels: ["26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56"],
-                                datasets: [{
-                                    label: "Poids(kg)",
-                                    data: [125, 125, 125, 125, 125, 125, 125, 125, 125, 125, 125, 125, 125, 125, 125, 125, 125, 125, 125, 125, 125],
-                                    backgroundColor: 'rgba(14, 159, 110, 1)',
-                                    borderColor: 'rgba(14, 159, 110, 1)',
-                                    borderWidth: 1
-                                }]
-                            };
-
-                            var ctx = document.getElementById('poids_graph').getContext('2d');
-                            var myChart = new Chart(ctx, {
-                                type: 'line',
-                                data: poids,
-                                options: {
-                                    scales: {
-                                        yAxes: [{
-                                            ticks: {
-                                                beginAtZero: true
-                                            }
-                                        }]
-                                    }
-                                }
-                            });
-
-                            var tableauDiv = document.getElementById("tableau_poids");
-                            var tbl = document.createElement("table");
-                            var tblBody = document.createElement("tbody");
-
-                            var headerRow = document.createElement("tr");
-                            var labelCell = document.createElement("th");
-                            labelCell.appendChild(document.createTextNode("Date"));
-                            headerRow.appendChild(labelCell);
-                            var valueCell = document.createElement("th");
-                            valueCell.appendChild(document.createTextNode("Poids"));
-                            headerRow.appendChild(valueCell);
-                            tblBody.appendChild(headerRow);
-
-                            for (var i = 0; i < poids.labels.length; i++) {
-                                var row = document.createElement("tr");
-                                var labelCell = document.createElement("td");
-                                labelCell.appendChild(document.createTextNode(poids.labels[i]));
-                                row.appendChild(labelCell);
-                                var valueCell = document.createElement("td");
-                                valueCell.appendChild(document.createTextNode(poids.datasets[0].data[i]));
-                                row.appendChild(valueCell);
-                                tblBody.appendChild(row);
-                            }
-
-                            tbl.appendChild(tblBody);
-                            tbl.setAttribute("border", "2");
-                            tableauDiv.appendChild(tbl);
-                        };
-                        var battery = {
-                            labels: ["26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56", "26/03/2006 23:04:56"],
-                                datasets: [{
-                                    label: "Batterie",
-                                    data: battery_list,
-                                    backgroundColor: 'rgba(14, 159, 110, 1)',
-                                    borderColor: 'rgba(14, 159, 110, 1)',
-                                    borderWidth: 1
-                                }]
-                            };
-
-                            var ctx = document.getElementById('batterie_graph').getContext('2d');
-                            var myChart = new Chart(ctx, {
-                                type: 'line',
-                                data: battery,
-                                options: {
-                                    scales: {
-                                        yAxes: [{
-                                            ticks: {
-                                                beginAtZero: true
-                                            }
-                                        }]
-                                    }
-                                }
-                            })
-
-                            var tableauDiv = document.getElementById("battery_table");
-                            var tbl = document.createElement("table");
-                            var tblBody = document.createElement("tbody");
-
-                            var headerRow = document.createElement("tr");
-                            var labelCell = document.createElement("th");
-                            labelCell.appendChild(document.createTextNode("Mois"));
-                            headerRow.appendChild(labelCell);
-                            var valueCell = document.createElement("th");
-                            valueCell.appendChild(document.createTextNode("Niveaux de charge"));
-                            headerRow.appendChild(valueCell);
-                            tblBody.appendChild(headerRow);
-
-                            for (var i = 0; i < battery.labels.length; i++) {
-                                var row = document.createElement("tr");
-                                var labelCell = document.createElement("td");
-                                labelCell.appendChild(document.createTextNode(battery.labels[i]));
-                                row.appendChild(labelCell);
-                                var valueCell = document.createElement("td");
-                                valueCell.appendChild(document.createTextNode(battery.datasets[0].data[i]));
-                                row.appendChild(valueCell);
-                                tblBody.appendChild(row);
-                            }
-
-                            tbl.appendChild(tblBody);
-                            tbl.setAttribute("border", "2");
-                            tableauDiv.appendChild(tbl);
-                    </script>
                 </div>
             </section>
         </section>
     </section>
+    <script src="main.js"></script>
 </body>
 </html>
