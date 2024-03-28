@@ -29,34 +29,41 @@ function updatePoids() {
 
 
 //Map
-let latitude = 48.8588897;
-let longitude = 2.320041;
+const latitude = 0;
+const longitude = 0;
 
-async function fetchCoordinates() {
-    try {
-        const response = await fetch('https://humble-mantis-evident.ngrok-free.app/api/get/battery/10');
-        const data = await response.json();
+function updateMapAndCoordinates() {
+    // Effectuer la requête HTTP
+    fetch('https://humble-mantis-evident.ngrok-free.app/api/get/coords/1')
+    .then(response => response.json())
+    .then(data => {
+        // Mettre à jour les variables avec les données de la réponse
+        const latitude = data[0].coordsLat;
+        const longitude = data[0].coordsLng;
 
-        // Vérifier si des données ont été récupérées
-        if (data && data.length > 0) {
-            // Extraire les valeurs de latitude et de longitude du premier élément du tableau
-            const latitude = data[0].coordsLat;
-            const longitude = data[0].coordsLng;
-            
-            // Utilisation des valeurs
-            console.log("Latitude :", latitude);
-            console.log("Longitude :", longitude);
+        // Créer la carte Leaflet
+        var map = L.map('map').setView([latitude, longitude], 13);
 
-            // Retourner les valeurs
-            return { latitude, longitude };
-        } else {
-            console.log("Aucune donnée n'a été récupérée de l'API.");
-            return null;
-        }
-    } catch (error) {
-        console.error('Une erreur est survenue lors de la récupération des données :', error);
-        return null;
-    }
+        // Ajouter la couche de tuiles OpenStreetMap à la carte
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: ''
+        }).addTo(map);
+
+        // Ajouter un marqueur à la position donnée sur la carte
+        L.marker([latitude, longitude]).addTo(map)
+            .bindPopup('Ruche')
+            .openPopup();
+
+        // Appeler la fonction getAddress avec les coordonnées
+        getAddress(latitude, longitude);
+
+        // Mettre à jour les éléments HTML avec les coordonnées
+        document.getElementById("latitude").innerText = latitude;
+        document.getElementById("longitude").innerText = longitude;
+    })
+    .catch(error => {
+        console.error('Erreur lors de la récupération des coordonnées:', error);
+    });
 }
 
 
@@ -79,21 +86,6 @@ function getAddress(latitude, longitude) {
     xhr.open('GET', url, true);
     xhr.send();
 }
-
-var map = L.map('map').setView([latitude, longitude], 13);
-
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: ''
-}).addTo(map);
-L.marker([latitude, longitude]).addTo(map)
-    .bindPopup('Ruche')
-    .openPopup();
-
-getAddress(latitude, longitude);
-
-document.getElementById("latitude").innerText = latitude;
-document.getElementById("longitude").innerText = longitude;
-
 
 // Fonction pour récupérer les données depuis l'API
 async function fetchData() {
@@ -128,5 +120,7 @@ async function generateTable() {
     });
 }
 
-
-window.onload = fetchCoordinates(), generateTable(), updateBattery(), updatePoids();
+updateMapAndCoordinates();
+generateTable()
+updateBattery()
+updatePoids()

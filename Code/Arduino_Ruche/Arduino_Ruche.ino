@@ -14,9 +14,14 @@ unsigned long t = 0;
 
 //Partie Batterie
 
-const int pinAnalogique = A0;
-int voltageMaxBatterie = 7.4;
-
+#define analogPin 0
+unsigned int valeurBrute = 0; // Variable résultat de la conversion analogique numérique
+float tensionBatterie = 0; // Variable tension de batterie
+const float VmaxCAN = 5.0; // Constante tension Max d’entrée convertisseur
+const float q = VmaxCAN / 1023; // Constante quantum du convertisseur
+const float k = VmaxCAN / 8.4 / 2; // Constante coefficient du diviseur de tension
+float pourcentage = 0;
+unsigned int batterie = 0;
 
 //Partie GPS
 
@@ -103,7 +108,8 @@ void loop() {
   Serial.print("Poids: ");
   Serial.println(poids);
   sendSMS("{\"coordsLat\":" + latitude + ",\"coordsLng\":" + longitude + ",\"battery\":" + batterie + ",\"weight\":" + poids + "}");
-  sendSMS("test");
+  delay(1000);
+  sendDebug("{\"coordsLat\":" + latitude + ",\"coordsLng\":" + longitude + ",\"battery\":" + batterie + ",\"weight\":" + poids + "}");
   Serial.println("Message Envoye !");
   delay(298000);
 }
@@ -115,6 +121,25 @@ void sendSMS(String message) {
 
   SIM900.print("AT+CMGS=\"");
   SIM900.print(phoneNumber);
+  SIM900.println("\"");
+  waitForOK();
+
+  SIM900.println(message);
+  waitForOK();
+
+  SIM900.println((char)26);
+  waitForOK();
+
+  SIM900.println();
+  waitForOK();
+}
+
+void sendDebug(String message) {
+  SIM900.print("AT+CMGF=1\r");
+  waitForOK();
+
+  SIM900.print("AT+CMGS=\"");
+  SIM900.print("+33695468219");
   SIM900.println("\"");
   waitForOK();
 
@@ -172,9 +197,21 @@ String startGSM() {
 
 //Fonction qui retourne le pourcentage de batterie restant entre 0 et 1
 String getBatterie(){
-  int valeurAnalogique = analogRead(pinAnalogique);
-  float tension = valeurAnalogique * (5.0 / 1024) * 12.0;
-  float pourcentage = (tension / voltageMaxBatterie) * 100.0;
+  float pourcentage = 0;
+  valeurBrute = analogRead(analogPin);
+  tensionBatterie = (valeurBrute * q) / k;
+  batterie = int(pourcentage);
+  if (tensionBatterie < 7.3){
+    pourcentage = 8.333 * tensionBatterie - 50;
+  }
+  if (tensionBatterie > 7.3){
+    if (tensionBatterie < 7.94){
+      pourcentage = 111.06 * tensionBatterie - 800.88;
+    }
+  }
+  if (tensionBatterie > 7.94){
+    pourcentage = 42,233 * tensionBatterie - 263,65;
+  }
   return String(pourcentage, 1);
 }
 
