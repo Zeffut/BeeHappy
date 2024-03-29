@@ -1,6 +1,5 @@
 body {
-    background: rgb(255,255,255);
-    background: linear-gradient(160deg, rgba(255,255,255,1) 0%, rgba(14,159,110,1) 100%);
+    background: #acd9b3;
     background-repeat: no-repeat;
     margin: 0px;
     font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
@@ -11,8 +10,7 @@ body {
 /* NavBar Horizontal */
 
 .navbar {
-    background-color: rgb(255, 255, 255);
-    background: rgba(252, 252, 252, 0);
+    background: #E5E7EB;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(5.1px);
     -webkit-backdrop-filter: blur(5.1px);
