@@ -11,7 +11,7 @@
     width: 20%;
     height: auto;
     margin-bottom: 5px;
-    background: rgb(255, 255, 255);
+    background: #E5E7EB;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(5.1px);
     -webkit-backdrop-filter: blur(5.1px);
@@ -38,7 +38,7 @@
 .location {
     width: 99%;
     height: 515px;
-    background: rgb(255, 255, 255);
+    background: #E5E7EB;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(5.1px);
     -webkit-backdrop-filter: blur(5.1px);
@@ -63,7 +63,7 @@ h1 {
 }
 
 .map {
-    width: 60%;
+    width: 600px;
 }
 
 .infos {
@@ -93,7 +93,7 @@ h1 {
 
 .history {
     width: 30%;
-    background: rgb(255, 255, 255);
+    background: #E5E7EB;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(5.1px);
     -webkit-backdrop-filter: blur(5.1px);
@@ -105,7 +105,7 @@ h1 {
 
 .graph {
     width: 70%;
-    background: rgb(255, 255, 255);
+    background: #E5E7EB;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(5.1px);
     -webkit-backdrop-filter: blur(5.1px);
@@ -116,7 +116,7 @@ h1 {
 
 .live_infos {
     width: 99%;
-    background: rgb(255, 255, 255);
+    background: #E5E7EB;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(5.1px);
     -webkit-backdrop-filter: blur(5.1px);

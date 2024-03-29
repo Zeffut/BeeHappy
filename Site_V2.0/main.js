@@ -120,7 +120,4 @@ async function generateTable() {
     });
 }
 
-updateMapAndCoordinates();
-generateTable()
-updateBattery()
-updatePoids()
+window.onload = generateTable(), updateBattery(), updatePoids(), updateMapAndCoordinates();
